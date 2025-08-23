@@ -1,0 +1,163 @@
+[gd_scene load_steps=33 format=3 uid="uid://k0jd013ox4lo"]
+
+[ext_resource type="PackedScene" uid="uid://6xt2osumxmuk" path="res://3d models/TV/TV.blend" id="1_atito"]
+[ext_resource type="Texture2D" uid="uid://fbip5xa2ol6b" path="res://textures/speaker/speaker_Base Color.jpg" id="2_kpiao"]
+[ext_resource type="Texture2D" uid="uid://bkccrvauxf1ay" path="res://3d models/idk plastic/Cool_Scratch_Map_04.jpg" id="2_u5kpq"]
+[ext_resource type="Texture2D" uid="uid://owr8xv0px3fq" path="res://3d models/idk plastic/NORMAL_old silver.jpg" id="3_6qlv6"]
+[ext_resource type="Texture2D" uid="uid://dcu4lx5ypanqv" path="res://textures/speaker/speaker_Metallic.jpg" id="3_gymhr"]
+[ext_resource type="Texture2D" uid="uid://bh0fhrjpmvfv8" path="res://3d models/idk plastic/ROUGHNESS_old silver.jpg" id="4_dl14l"]
+[ext_resource type="Texture2D" uid="uid://cy6hty7r3im5c" path="res://textures/speaker/speaker_Normal.jpg" id="4_u5kpq"]
+[ext_resource type="Texture2D" uid="uid://dnmvitmmo6qk7" path="res://textures/speaker/speaker_Roughness.jpg" id="5_6qlv6"]
+[ext_resource type="Texture2D" uid="uid://bhofnpvif6u7k" path="res://textures/metal 11/metal_11_diffuse.jpg" id="5_pdyd3"]
+[ext_resource type="Texture2D" uid="uid://bbh0qp6503c4g" path="res://textures/metal 11/metal_metallic.jpg" id="6_88hrg"]
+[ext_resource type="Texture2D" uid="uid://da14o2aba3t08" path="res://textures/metal 11/metal_normal_opengl.jpg" id="7_2dcxp"]
+[ext_resource type="Texture2D" uid="uid://bsbr4swo4752b" path="res://textures/metal 11/metal_glossiness.jpg" id="8_56vit"]
+[ext_resource type="Texture2D" uid="uid://vn7kf6651xpt" path="res://textures/steel/steel_metallic.jpg" id="13_pdyd3"]
+[ext_resource type="Texture2D" uid="uid://clwk264loxtsx" path="res://textures/steel/steel_normal_opengl.jpg" id="14_88hrg"]
+[ext_resource type="Texture2D" uid="uid://dviph7o3acetm" path="res://textures/steel/steel_glossiness.jpg" id="15_2dcxp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rx82t"]
+albedo_texture = ExtResource("2_u5kpq")
+roughness_texture = ExtResource("4_dl14l")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("3_6qlv6")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_giqt3"]
+albedo_texture = ExtResource("5_pdyd3")
+metallic = 1.0
+metallic_texture = ExtResource("6_88hrg")
+metallic_texture_channel = 3
+roughness_texture = ExtResource("8_56vit")
+normal_enabled = true
+normal_texture = ExtResource("7_2dcxp")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dl14l"]
+albedo_texture = ExtResource("2_kpiao")
+metallic = 1.0
+metallic_texture = ExtResource("3_gymhr")
+roughness_texture = ExtResource("5_6qlv6")
+normal_enabled = true
+normal_scale = -1.0
+normal_texture = ExtResource("4_u5kpq")
+uv1_offset = Vector3(0, 0.13, 0)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xepky"]
+albedo_texture = ExtResource("5_pdyd3")
+metallic = 1.0
+metallic_texture = ExtResource("6_88hrg")
+metallic_texture_channel = 3
+roughness_texture = ExtResource("8_56vit")
+normal_enabled = true
+normal_texture = ExtResource("7_2dcxp")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pdyd3"]
+albedo_texture = ExtResource("5_pdyd3")
+metallic = 1.0
+metallic_texture = ExtResource("6_88hrg")
+metallic_texture_channel = 3
+roughness_texture = ExtResource("8_56vit")
+normal_enabled = true
+normal_texture = ExtResource("7_2dcxp")
+uv1_scale = Vector3(5, 0.5, 0.15)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_88hrg"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dcxp"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_56vit"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xs0fy"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jj0rl"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q85oj"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_541eb"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o757t"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihtc1"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1v3ag"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgpme"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxckg"]
+albedo_color = Color(0.810301, 0.782914, 0.549775, 1)
+metallic = 1.0
+metallic_texture = ExtResource("13_pdyd3")
+metallic_texture_channel = 3
+roughness_texture = ExtResource("15_2dcxp")
+normal_enabled = true
+normal_texture = ExtResource("14_88hrg")
+uv1_triplanar = true
+
+[node name="TV" instance=ExtResource("1_atito")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_rx82t")
+
+[node name="Cube_001" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_giqt3")
+surface_material_override/1 = SubResource("StandardMaterial3D_dl14l")
+
+[node name="Cube_002" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xepky")
+
+[node name="Cube_003" parent="." index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pdyd3")
+
+[node name="Cylinder" parent="." index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_88hrg")
+
+[node name="Cylinder_001" parent="." index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2dcxp")
+
+[node name="Cylinder_002" parent="." index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_56vit")
+
+[node name="BezierCurve" parent="." index="7"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xs0fy")
+
+[node name="BezierCurve_001" parent="." index="8"]
+surface_material_override/0 = SubResource("StandardMaterial3D_jj0rl")
+
+[node name="Cylinder_003" parent="." index="9"]
+surface_material_override/0 = SubResource("StandardMaterial3D_q85oj")
+
+[node name="BezierCurve_002" parent="." index="10"]
+surface_material_override/0 = SubResource("StandardMaterial3D_541eb")
+
+[node name="Cube_004" parent="." index="11"]
+surface_material_override/0 = SubResource("StandardMaterial3D_o757t")
+
+[node name="BezierCurve_003" parent="." index="12"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ihtc1")
+
+[node name="Cube_005" parent="." index="13"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1v3ag")
+
+[node name="BezierCurve_004" parent="." index="14"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bgpme")
+
+[node name="Text" parent="." index="15"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fxckg")
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="16"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://c42t1wrp3qcyx"]
+
+[ext_resource type="PackedScene" uid="uid://di6rwuy115csp" path="res://3d models/roof/roof.blend" id="1_c56ge"]
+[ext_resource type="Texture2D" uid="uid://brap5er5cwdg" path="res://textures/tester textures/kenney_prototype_textures/red/texture_01.png" id="2_uih6a"]
+[ext_resource type="Texture2D" uid="uid://dkv16u0b6432f" path="res://textures/tester textures/kenney_prototype_textures/texture_02_normal.png" id="3_ihw2l"]
+[ext_resource type="Texture2D" uid="uid://8nnwnl8ouhqg" path="res://textures/dirty white plastic/dirtywhiteplasyic_Roughness.jpg" id="4_7e0rt"]
+[ext_resource type="Texture2D" uid="uid://ciks3v84v6ewt" path="res://textures/tester textures/kenney_prototype_textures/red/texture_02.png" id="5_cp3he"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m5vnd"]
+albedo_texture = ExtResource("2_uih6a")
+roughness_texture = ExtResource("4_7e0rt")
+normal_enabled = true
+normal_scale = 3.0
+normal_texture = ExtResource("3_ihw2l")
+uv1_scale = Vector3(11, 0.55, 11)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kq8dt"]
+albedo_texture = ExtResource("5_cp3he")
+roughness_texture = ExtResource("4_7e0rt")
+normal_enabled = true
+normal_scale = 3.0
+normal_texture = ExtResource("3_ihw2l")
+uv1_scale = Vector3(20, 1.004, 1.004)
+uv1_triplanar = true
+
+[node name="roof" instance=ExtResource("1_c56ge")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_m5vnd")
+surface_material_override/1 = SubResource("StandardMaterial3D_kq8dt")

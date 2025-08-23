@@ -1,0 +1,44 @@
+[gd_scene load_steps=11 format=3 uid="uid://da1csg8qk237"]
+
+[ext_resource type="PackedScene" uid="uid://f4aduioow7dv" path="res://3d models/propeler/untitled.blend" id="1_wg1t3"]
+[ext_resource type="Texture2D" uid="uid://vn7kf6651xpt" path="res://textures/steel/steel_metallic.jpg" id="2_j6gii"]
+[ext_resource type="Texture2D" uid="uid://clwk264loxtsx" path="res://textures/steel/steel_normal_opengl.jpg" id="3_kd7ke"]
+[ext_resource type="Texture2D" uid="uid://dviph7o3acetm" path="res://textures/steel/steel_glossiness.jpg" id="4_1foa5"]
+[ext_resource type="Texture2D" uid="uid://bhofnpvif6u7k" path="res://textures/metal 11/metal_11_diffuse.jpg" id="5_lodio"]
+[ext_resource type="Texture2D" uid="uid://da14o2aba3t08" path="res://textures/metal 11/metal_normal_opengl.jpg" id="6_65hew"]
+[ext_resource type="Texture2D" uid="uid://bsbr4swo4752b" path="res://textures/metal 11/metal_glossiness.jpg" id="7_fm1cq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fibac"]
+metallic = 1.0
+metallic_texture = ExtResource("2_j6gii")
+roughness_texture = ExtResource("4_1foa5")
+normal_enabled = true
+normal_texture = ExtResource("3_kd7ke")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kkev"]
+albedo_texture = ExtResource("5_lodio")
+metallic = 1.0
+roughness_texture = ExtResource("7_fm1cq")
+normal_enabled = true
+normal_texture = ExtResource("6_65hew")
+uv1_scale = Vector3(1, 1, 0.28)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg1t3"]
+albedo_color = Color(1, 0.588235, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.588235, 0, 1)
+emission_energy_multiplier = 16.0
+
+[node name="untitled" instance=ExtResource("1_wg1t3")]
+
+[node name="Cylinder" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fibac")
+
+[node name="Cube_007" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7kkev")
+
+[node name="Cylinder_001" parent="." index="2"]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_wg1t3")
