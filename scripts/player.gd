@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 const JUMP_VELOCITY = 4.5
-const FOV_CHANGE = 1.5
+const FOV_CHANGE = 2.5
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
 
