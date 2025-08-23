@@ -11,24 +11,29 @@ var speed = 5
 var perspective = 1
 var base_fov = 75
 
+@onready var player = $"."
 @onready var camera = $Node3D
 @onready var fpp = $Node3D/Camera3D
 @onready var tpp = $Node3D/SpringArm3D/Camera3D2
 @onready var anim = $AnimationPlayer
+@onready var movement = $"basic movement/AnimationPlayer"
 
 func _input(event: InputEvent) -> void:
+	#sprinting
 	if event.is_action_pressed("sprint"):
 		speed += 4
 	elif event.is_action_released("sprint"):
 		speed = 5
 
 func _unhandled_input(event: InputEvent) -> void:
+	#camera control
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotate_y(-event.relative.x * sensitivity)
 			camera.rotate_x(-event.relative.y * sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
+	#camera change
 	if perspective == 4:
 		perspective = 1
 	if Input.is_action_just_pressed("camera change"):
@@ -47,8 +52,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			fpp.current = false
 			tpp.current = true
 			anim.play("tpp_2")
-
-		print(perspective)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -83,6 +86,35 @@ func _physics_process(delta: float) -> void:
 	var target_fov = base_fov + FOV_CHANGE * velocity_clamped
 	fpp.fov = lerp(fpp.fov, target_fov, delta * 3.0)
 	tpp.fov = lerp(fpp.fov, target_fov, delta * 3.0)
+
+	#movement animations
+	if is_on_floor():
+		if Input.is_action_pressed("forward"):
+			if speed == 5:
+				movement.play("walk")
+			elif speed == 9:
+				movement.play("running")
+		elif Input.is_action_pressed("back"):
+			if speed == 5:
+				movement.play("walking backwards")
+			elif speed == 9:
+				movement.play("running backwards")
+		elif Input.is_action_pressed("left"):
+			if speed == 5:
+				movement.play("left strafe walking")
+			if speed == 9:
+				movement.play("left strafe")
+		elif Input.is_action_pressed("right"):
+			if speed == 5:
+				movement.play("right strafe walking")
+			if speed == 9:
+				movement.play("right strafe")
+		elif movement.current_animation != "jump":
+			movement.play("idle")
+	if Input.is_action_pressed("jump") and is_on_floor():
+		movement.play("jump")
+	if movement.current_animation != "jump" and not is_on_floor():
+		movement.play("falling")
 
 	move_and_slide()
 

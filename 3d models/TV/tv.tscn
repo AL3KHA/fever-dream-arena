@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://6xt2osumxmuk" path="res://3d models/TV/TV.blend" id="1_atito"]
 [ext_resource type="Texture2D" uid="uid://fbip5xa2ol6b" path="res://textures/speaker/speaker_Base Color.jpg" id="2_kpiao"]
-[ext_resource type="Texture2D" uid="uid://bkccrvauxf1ay" path="res://3d models/idk plastic/Cool_Scratch_Map_04.jpg" id="2_u5kpq"]
-[ext_resource type="Texture2D" uid="uid://owr8xv0px3fq" path="res://3d models/idk plastic/NORMAL_old silver.jpg" id="3_6qlv6"]
+[ext_resource type="Texture2D" uid="uid://bkccrvauxf1ay" path="res://textures/idk plastic/Cool_Scratch_Map_04.jpg" id="2_u5kpq"]
+[ext_resource type="Texture2D" uid="uid://owr8xv0px3fq" path="res://textures/idk plastic/NORMAL_old silver.jpg" id="3_6qlv6"]
 [ext_resource type="Texture2D" uid="uid://dcu4lx5ypanqv" path="res://textures/speaker/speaker_Metallic.jpg" id="3_gymhr"]
-[ext_resource type="Texture2D" uid="uid://bh0fhrjpmvfv8" path="res://3d models/idk plastic/ROUGHNESS_old silver.jpg" id="4_dl14l"]
+[ext_resource type="Texture2D" uid="uid://bh0fhrjpmvfv8" path="res://textures/idk plastic/ROUGHNESS_old silver.jpg" id="4_dl14l"]
 [ext_resource type="Texture2D" uid="uid://cy6hty7r3im5c" path="res://textures/speaker/speaker_Normal.jpg" id="4_u5kpq"]
 [ext_resource type="Texture2D" uid="uid://dnmvitmmo6qk7" path="res://textures/speaker/speaker_Roughness.jpg" id="5_6qlv6"]
 [ext_resource type="Texture2D" uid="uid://bhofnpvif6u7k" path="res://textures/metal 11/metal_11_diffuse.jpg" id="5_pdyd3"]
