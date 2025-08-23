@@ -97,6 +97,7 @@ uv1_triplanar = true
 size = Vector3(4, 1, 14.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jb21d"]
+size = Vector3(0.8, 6, 4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ld3hd"]
 
@@ -414,12 +415,14 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
 shape = SubResource("BoxShape3D_iya86")
 
 [node name="kari" type="StaticBody3D" parent="spawn 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5, 9.2, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="spawn 1/kari"]
 shape = SubResource("BoxShape3D_jb21d")
+disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="spawn 1/kari"]
-transform = Transform3D(0.8, 0, 0, 0, 6, 0, 0, 0, 4, 21.5, 9, 0)
+transform = Transform3D(0.8, 0, 0, 0, 6, 0, 0, 0, 4, 0, 0, 0)
 mesh = SubResource("BoxMesh_ld3hd")
 surface_material_override/0 = SubResource("StandardMaterial3D_bevlv")
 

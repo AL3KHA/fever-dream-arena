@@ -7,7 +7,7 @@ const BOB_AMP = 0.08
 
 var t_bob = 0.0
 var sensitivity: float = 0.008
-var speed = 5
+var speed = 1.75
 var perspective = 1
 var base_fov = 75
 
@@ -21,9 +21,9 @@ var base_fov = 75
 func _input(event: InputEvent) -> void:
 	#sprinting
 	if event.is_action_pressed("sprint"):
-		speed += 4
+		speed += 4.25
 	elif event.is_action_released("sprint"):
-		speed = 5
+		speed = 1.75
 
 func _unhandled_input(event: InputEvent) -> void:
 	#camera control
@@ -90,24 +90,24 @@ func _physics_process(delta: float) -> void:
 	#movement animations
 	if is_on_floor():
 		if Input.is_action_pressed("forward"):
-			if speed == 5:
+			if speed == 1.75:
 				movement.play("walk")
-			elif speed == 9:
+			elif speed == 6:
 				movement.play("running")
 		elif Input.is_action_pressed("back"):
-			if speed == 5:
+			if speed == 1.75:
 				movement.play("walking backwards")
-			elif speed == 9:
+			elif speed == 6:
 				movement.play("running backwards")
 		elif Input.is_action_pressed("left"):
-			if speed == 5:
+			if speed == 1.75:
 				movement.play("left strafe walking")
-			if speed == 9:
+			if speed == 6:
 				movement.play("left strafe")
 		elif Input.is_action_pressed("right"):
-			if speed == 5:
+			if speed == 1.75:
 				movement.play("right strafe walking")
-			if speed == 9:
+			if speed == 6:
 				movement.play("right strafe")
 		elif movement.current_animation != "jump":
 			movement.play("idle")
