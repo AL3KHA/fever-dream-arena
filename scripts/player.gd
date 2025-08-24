@@ -22,6 +22,7 @@ var crouch = 1
 @onready var col = $CollisionShape3D
 @onready var for_crouch = $Node3D/AnimationPlayer
 @onready var low_body_rot = $"basic movement lower body/AnimationPlayer2"
+@onready var upp_body_rot = $"basic movement upper body/AnimationPlayer2"
 
 func _ready() -> void:
 	crouch = 1
@@ -210,7 +211,7 @@ func _physics_process(delta: float) -> void:
 
 	# movement animations for upper body
 	if is_on_floor():
-		if Input.is_action_pressed("forward") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
+		if Input.is_action_pressed("forward") and not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_up.play("walk")
@@ -219,7 +220,28 @@ func _physics_process(delta: float) -> void:
 			elif speed == 6:
 				mov_up.play("running")
 				crouch = 1
-		elif Input.is_action_pressed("back") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward"):
+			upp_body_rot.play("normal")
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("walk")
+				elif crouch == 2:
+					mov_up.play("crouched walking")
+			elif speed == 6:
+				mov_up.play("running")
+				crouch = 1
+			upp_body_rot.play("right")
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("walk")
+				elif crouch == 2:
+					mov_up.play("crouched walking")
+			elif speed == 6:
+				mov_up.play("running")
+				crouch = 1
+			upp_body_rot.play("left")
+		elif Input.is_action_pressed("back") and not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and mov_up.current_animation != "jump":
 			if speed == 1.75:
 				if crouch == 1:
 					mov_up.play("walking backwards")
@@ -228,6 +250,27 @@ func _physics_process(delta: float) -> void:
 			elif speed == 6:
 				mov_up.play("running backwards")
 				crouch = 1
+			upp_body_rot.play("normal")
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("walking backwards")
+				elif  crouch == 2:
+					mov_up.play("crouched walking back")
+			elif speed == 6:
+				mov_up.play("running backwards")
+				crouch = 1
+			upp_body_rot.play("left")
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("walking backwards")
+				elif  crouch == 2:
+					mov_up.play("crouched walking back")
+			elif speed == 6:
+				mov_up.play("running backwards")
+				crouch = 1
+			upp_body_rot.play("right")
 		elif Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("right"):
 			if speed == 1.75:
 				if crouch == 1:
@@ -237,6 +280,7 @@ func _physics_process(delta: float) -> void:
 			if speed == 6:
 				mov_up.play("left strafe")
 				crouch = 1
+			upp_body_rot.play("normal")
 		elif Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("left"):
 			if speed == 1.75:
 				if crouch == 1:
@@ -246,15 +290,23 @@ func _physics_process(delta: float) -> void:
 			if speed == 6:
 				mov_up.play("right strafe")
 				crouch = 1
+			upp_body_rot.play("normal")
 		elif mov_up.current_animation != "jump":
 			if crouch == 1:
 				mov_up.play("idle")
 			elif crouch == 2:
 				mov_up.play("crouched idle")
+			upp_body_rot.play("normal")
 	if Input.is_action_pressed("jump") and is_on_floor():
 		mov_up.play("jump")
+		upp_body_rot.play("normal")
 	if mov_up.current_animation != "jump" and not is_on_floor():
 		mov_up.play("falling")
+		low_body_rot.play("normal")
+
+	# head rotation
+	var head = $"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head"
+	head.rotation.x = camera.rotation.x
 
 	move_and_slide()
 
