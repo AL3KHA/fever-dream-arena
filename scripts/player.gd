@@ -10,13 +10,24 @@ var sensitivity: float = 0.008
 var speed = 1.75
 var perspective = 1
 var base_fov = 75
+var crouch = 1
 
 @onready var player = $"."
 @onready var camera = $Node3D
 @onready var fpp = $Node3D/Camera3D
 @onready var tpp = $Node3D/SpringArm3D/Camera3D2
 @onready var anim = $AnimationPlayer
-@onready var movement = $"basic movement/AnimationPlayer"
+@onready var mov_low = $"basic movement lower body/AnimationPlayer"
+@onready var mov_up = $"basic movement upper body/AnimationPlayer"
+@onready var col = $CollisionShape3D
+@onready var for_crouch = $Node3D/AnimationPlayer
+@onready var low_body_rot = $"basic movement lower body/AnimationPlayer2"
+
+func _ready() -> void:
+	crouch = 1
+	col.transform.origin = Vector3(0.0, 0.9, 0.0)
+	col.scale = Vector3(1.0, 1.0, 1.0)
+	for_crouch.play("not crouched")
 
 func _input(event: InputEvent) -> void:
 	#sprinting
@@ -25,15 +36,30 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_released("sprint"):
 		speed = 1.75
 
+# handling crouch
+	if event.is_action_pressed("crouch"):
+		crouch = 2
+	if event.is_action_released("crouch"):
+		crouch = 1
+
+	if crouch == 1:
+		col.transform.origin = Vector3(0.0, 0.9, 0.0)
+		col.scale = Vector3(1.0, 1.0, 1.0)
+		for_crouch.play("not crouched")
+	elif  crouch == 2:
+		col.transform.origin = Vector3(0.0, 0.7, 0.0)
+		col.scale = Vector3(1.0, 0.8, 1.0)
+		for_crouch.play("crouched")
+
 func _unhandled_input(event: InputEvent) -> void:
-	#camera control
+	# camera control
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotate_y(-event.relative.x * sensitivity)
 			camera.rotate_x(-event.relative.y * sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
-	#camera change
+	# camera change
 	if perspective == 4:
 		perspective = 1
 	if Input.is_action_just_pressed("camera change"):
@@ -43,9 +69,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			anim.playback_default_blend_time = 0.0
 			fpp.current = true
 			tpp.current = false
-			anim.play("tpp_1")
 		if perspective == 2:
-			anim.playback_default_blend_time = 0.5
+			anim.play("tpp_1")
 			fpp.current = false
 			tpp.current = true
 		if perspective == 3:
@@ -80,6 +105,7 @@ func _physics_process(delta: float) -> void:
 	#head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	fpp.transform.origin = _headbob(t_bob)
+	tpp.transform.origin = _headbob(t_bob)
 
 	#fov
 	var velocity_clamped = clamp(velocity.length(), 0.5, 9 * 2)
@@ -87,34 +113,148 @@ func _physics_process(delta: float) -> void:
 	fpp.fov = lerp(fpp.fov, target_fov, delta * 3.0)
 	tpp.fov = lerp(fpp.fov, target_fov, delta * 3.0)
 
-	#movement animations
+	# movement animations for lower body
 	if is_on_floor():
-		if Input.is_action_pressed("forward"):
+		if Input.is_action_pressed("forward") and not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back"):
 			if speed == 1.75:
-				movement.play("walk")
+				if crouch == 1:
+					mov_low.play("walk")
+				elif crouch == 2:
+					mov_low.play("crouched walking")
 			elif speed == 6:
-				movement.play("running")
-		elif Input.is_action_pressed("back"):
+				mov_low.play("running")
+				crouch = 1
+			low_body_rot.play("normal")
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back"):
 			if speed == 1.75:
-				movement.play("walking backwards")
+				if crouch == 1:
+					mov_low.play("walk")
+				elif crouch == 2:
+					mov_low.play("crouched walking")
 			elif speed == 6:
-				movement.play("running backwards")
-		elif Input.is_action_pressed("left"):
+				mov_low.play("running")
+				crouch = 1
+			low_body_rot.play("right")
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back"):
 			if speed == 1.75:
-				movement.play("left strafe walking")
-			if speed == 6:
-				movement.play("left strafe")
-		elif Input.is_action_pressed("right"):
+				if crouch == 1:
+					mov_low.play("walk")
+				elif crouch == 2:
+					mov_low.play("crouched walking")
+			elif speed == 6:
+				mov_low.play("running")
+				crouch = 1
+			low_body_rot.play("left")
+		elif Input.is_action_pressed("back") and not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and mov_low.current_animation != "jump":
 			if speed == 1.75:
-				movement.play("right strafe walking")
+				if crouch == 1:
+					mov_low.play("walking backwards")
+				elif  crouch == 2:
+					mov_low.play("crouched walking back")
+			elif speed == 6:
+				mov_low.play("running backwards")
+				crouch = 1
+			low_body_rot.play("normal")
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("forward"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_low.play("walking backwards")
+				elif  crouch == 2:
+					mov_low.play("crouched walking back")
+			elif speed == 6:
+				mov_low.play("running backwards")
+				crouch = 1
+			low_body_rot.play("left")
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("forward"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_low.play("walking backwards")
+				elif  crouch == 2:
+					mov_low.play("crouched walking back")
+			elif speed == 6:
+				mov_low.play("running backwards")
+				crouch = 1
+			low_body_rot.play("right")
+		elif Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("right"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_low.play("left strafe walking")
+				elif crouch == 2:
+					mov_low.play("crouching left")
 			if speed == 6:
-				movement.play("right strafe")
-		elif movement.current_animation != "jump":
-			movement.play("idle")
+				mov_low.play("left strafe")
+				crouch = 1
+			low_body_rot.play("normal")
+		elif Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("left"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_low.play("right strafe walking")
+				elif  crouch == 2:
+					mov_low.play("crouching right")
+			if speed == 6:
+				mov_low.play("right strafe")
+				crouch = 1
+			low_body_rot.play("normal")
+		elif mov_low.current_animation != "jump":
+			if crouch == 1:
+				mov_low.play("idle")
+			elif crouch == 2:
+				mov_low.play("crouched idle")
+			low_body_rot.play("normal")
 	if Input.is_action_pressed("jump") and is_on_floor():
-		movement.play("jump")
-	if movement.current_animation != "jump" and not is_on_floor():
-		movement.play("falling")
+		mov_low.play("jump")
+		low_body_rot.play("normal")
+	if mov_low.current_animation != "jump" and not is_on_floor():
+		mov_low.play("falling")
+		low_body_rot.play("normal")
+
+	# movement animations for upper body
+	if is_on_floor():
+		if Input.is_action_pressed("forward") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("walk")
+				elif crouch == 2:
+					mov_up.play("crouched walking")
+			elif speed == 6:
+				mov_up.play("running")
+				crouch = 1
+		elif Input.is_action_pressed("back") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("walking backwards")
+				elif  crouch == 2:
+					mov_up.play("crouched walking back")
+			elif speed == 6:
+				mov_up.play("running backwards")
+				crouch = 1
+		elif Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("right"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("left strafe walking")
+				elif crouch == 2:
+					mov_up.play("crouching left")
+			if speed == 6:
+				mov_up.play("left strafe")
+				crouch = 1
+		elif Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("left"):
+			if speed == 1.75:
+				if crouch == 1:
+					mov_up.play("right strafe walking")
+				elif  crouch == 2:
+					mov_up.play("crouching right")
+			if speed == 6:
+				mov_up.play("right strafe")
+				crouch = 1
+		elif mov_up.current_animation != "jump":
+			if crouch == 1:
+				mov_up.play("idle")
+			elif crouch == 2:
+				mov_up.play("crouched idle")
+	if Input.is_action_pressed("jump") and is_on_floor():
+		mov_up.play("jump")
+	if mov_up.current_animation != "jump" and not is_on_floor():
+		mov_up.play("falling")
 
 	move_and_slide()
 
