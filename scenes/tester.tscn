@@ -510,6 +510,7 @@ shape = SubResource("BoxShape3D_1dgn3")
 mesh = SubResource("BoxMesh_dsw1t")
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer3"]
 anchors_preset = 1
@@ -579,7 +580,6 @@ placeholder_text = "enter PORT"
 alignment = 1
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
 material = SubResource("ShaderMaterial_dsw1t")

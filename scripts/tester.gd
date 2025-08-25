@@ -7,7 +7,7 @@ extends Node
 const PLAYER = preload("res://scenes/player.tscn")
 const PORT = 6969
 
-var ip_address = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+var ip_address = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")), IP.TYPE_IPV4)
 var port
 var rng = RandomNumberGenerator.new()
 var enet_peer = ENetMultiplayerPeer.new()
@@ -43,7 +43,7 @@ func _on_join_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$CanvasLayer2.hide()
 
-	enet_peer.create_client($CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/addressEntry.text, $CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/addressEntry2.text)
+	enet_peer.create_client($CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/addressEntry.text, int($CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/addressEntry2.text))
 	multiplayer.multiplayer_peer = enet_peer
 
 func add_player(peer_id):
