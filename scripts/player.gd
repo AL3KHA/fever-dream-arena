@@ -24,11 +24,18 @@ var crouch = 1
 @onready var low_body_rot = $"basic movement lower body/AnimationPlayer2"
 @onready var upp_body_rot = $"basic movement upper body/AnimationPlayer2"
 
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
+
 func _ready() -> void:
+	if not is_multiplayer_authority():
+		return
+
 	crouch = 1
 	col.transform.origin = Vector3(0.0, 0.9, 0.0)
 	col.scale = Vector3(1.0, 1.0, 1.0)
 	for_crouch.play("not crouched")
+	fpp.current = true
 
 func _input(event: InputEvent) -> void:
 	#sprinting
@@ -53,6 +60,9 @@ func _input(event: InputEvent) -> void:
 		for_crouch.play("crouched")
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	# camera control
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
@@ -70,7 +80,21 @@ func _unhandled_input(event: InputEvent) -> void:
 			anim.playback_default_blend_time = 0.0
 			fpp.current = true
 			tpp.current = false
+			$"basic movement lower body/Armature/Skeleton3D/Alpha_Joints".hide()
+			$"basic movement lower body/Armature/Skeleton3D/Alpha_Surface".hide()
+			$"basic movement upper body/Armature/Skeleton3D/Alpha_Joints".hide()
+			$"basic movement upper body/Armature/Skeleton3D/Alpha_Surface".hide()
+			$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Alpha_Surface".hide()
+			$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Cylinder".hide()
+			$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Cylinder_001".hide()
 		if perspective == 2:
+			$"basic movement lower body/Armature/Skeleton3D/Alpha_Joints".show()
+			$"basic movement lower body/Armature/Skeleton3D/Alpha_Surface".show()
+			$"basic movement upper body/Armature/Skeleton3D/Alpha_Joints".show()
+			$"basic movement upper body/Armature/Skeleton3D/Alpha_Surface".show()
+			$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Alpha_Surface".show()
+			$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Cylinder".show()
+			$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Cylinder_001".show()
 			anim.play("tpp_1")
 			fpp.current = false
 			tpp.current = true
@@ -80,6 +104,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			anim.play("tpp_2")
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

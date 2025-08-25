@@ -1,9 +1,8 @@
-[gd_scene load_steps=50 format=3 uid="uid://dyi28etvpb80x"]
+[gd_scene load_steps=51 format=3 uid="uid://dyi28etvpb80x"]
 
 [ext_resource type="Script" uid="uid://7hpmwxmj0dp4" path="res://scripts/tester.gd" id="1_0hq0q"]
 [ext_resource type="Texture2D" uid="uid://chci4cmslvnbs" path="res://textures/tester textures/kenney_prototype_textures/dark/texture_01.png" id="1_qt16s"]
 [ext_resource type="Texture2D" uid="uid://dkv16u0b6432f" path="res://textures/tester textures/kenney_prototype_textures/texture_02_normal.png" id="2_m6jnb"]
-[ext_resource type="PackedScene" uid="uid://ji58mnq8wfy2" path="res://scenes/player.tscn" id="3_m6jnb"]
 [ext_resource type="Texture2D" uid="uid://8nnwnl8ouhqg" path="res://textures/dirty white plastic/dirtywhiteplasyic_Roughness.jpg" id="4_85ep3"]
 [ext_resource type="Texture2D" uid="uid://dw4ngm18uq0dm" path="res://textures/tester textures/kenney_prototype_textures/orange/texture_09.png" id="4_ag3va"]
 [ext_resource type="Texture2D" uid="uid://c4p4q2hd1wmf4" path="res://textures/tester textures/kenney_prototype_textures/texture_01_normal.png" id="5_0eea3"]
@@ -17,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://blk2f82b1c5ke" path="res://textures/painted metal/painted_metal_normal_opengl.jpg" id="11_dsw1t"]
 [ext_resource type="Texture2D" uid="uid://2may2hon8qhx" path="res://textures/painted metal/painted_metal_glossiness.jpg" id="12_tsccn"]
 [ext_resource type="PackedScene" uid="uid://k0jd013ox4lo" path="res://3d models/TV/tv.tscn" id="14_1dgn3"]
+[ext_resource type="Shader" uid="uid://by215mxu3ogxe" path="res://scripts/shaders/CRT with luminance.gdshader" id="17_1dgn3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0hq0q"]
 
@@ -231,6 +231,9 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_1dgn3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dsw1t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dsw1t"]
+shader = ExtResource("17_1dgn3")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_0hq0q")
@@ -485,9 +488,6 @@ shadow_bias = 6.0
 shadow_normal_bias = 0.0
 spot_range = 32.0
 
-[node name="player" parent="." instance=ExtResource("3_m6jnb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30.203, 6.92, 0.0488249)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../untitled")
 libraries = {
@@ -500,7 +500,7 @@ libraries = {
 }
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
 collision_layer = 255
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
@@ -508,3 +508,91 @@ shape = SubResource("BoxShape3D_1dgn3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
 mesh = SubResource("BoxMesh_dsw1t")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer3"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer3/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer3/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="IP" type="Label" parent="CanvasLayer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PORT" type="Label" parent="CanvasLayer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 483.0
+offset_top = 262.0
+offset_right = -483.0
+offset_bottom = -263.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Host" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="addressEntry" type="LineEdit" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "enter IP"
+alignment = 1
+
+[node name="addressEntry2" type="LineEdit" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "enter PORT"
+alignment = 1
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_dsw1t")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://ji58mnq8wfy2")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
