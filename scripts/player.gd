@@ -160,7 +160,7 @@ func _physics_process(delta: float) -> void:
 				mov_low.play("running")
 				crouch = 1
 			low_body_rot.play("normal")
-		elif Input.is_action_pressed("forward") and Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back"):
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back") and not Input.is_action_pressed("left"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_low.play("walk")
@@ -170,7 +170,7 @@ func _physics_process(delta: float) -> void:
 				mov_low.play("running")
 				crouch = 1
 			low_body_rot.play("right")
-		elif Input.is_action_pressed("forward") and Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back"):
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("back") and not Input.is_action_pressed("right"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_low.play("walk")
@@ -190,7 +190,7 @@ func _physics_process(delta: float) -> void:
 				mov_low.play("running backwards")
 				crouch = 1
 			low_body_rot.play("normal")
-		elif Input.is_action_pressed("back") and Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("forward"):
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("right") and mov_low.current_animation != "jump" and not Input.is_action_pressed("forward") and not Input.is_action_pressed("left"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_low.play("walking backwards")
@@ -200,7 +200,7 @@ func _physics_process(delta: float) -> void:
 				mov_low.play("running backwards")
 				crouch = 1
 			low_body_rot.play("left")
-		elif Input.is_action_pressed("back") and Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("forward"):
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("left") and mov_low.current_animation != "jump" and not Input.is_action_pressed("forward") and not Input.is_action_pressed("right"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_low.play("walking backwards")
@@ -255,7 +255,7 @@ func _physics_process(delta: float) -> void:
 				mov_up.play("running")
 				crouch = 1
 			upp_body_rot.play("normal")
-		elif Input.is_action_pressed("forward") and Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back") and not Input.is_action_pressed("left"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_up.play("walk")
@@ -265,7 +265,7 @@ func _physics_process(delta: float) -> void:
 				mov_up.play("running")
 				crouch = 1
 			upp_body_rot.play("right")
-		elif Input.is_action_pressed("forward") and Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back"):
+		elif Input.is_action_pressed("forward") and Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("back") and not Input.is_action_pressed("right"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_up.play("walk")
@@ -285,7 +285,7 @@ func _physics_process(delta: float) -> void:
 				mov_up.play("running backwards")
 				crouch = 1
 			upp_body_rot.play("normal")
-		elif Input.is_action_pressed("back") and Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward"):
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("right") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward") and not Input.is_action_pressed("left"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_up.play("walking backwards")
@@ -295,7 +295,7 @@ func _physics_process(delta: float) -> void:
 				mov_up.play("running backwards")
 				crouch = 1
 			upp_body_rot.play("left")
-		elif Input.is_action_pressed("back") and Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward"):
+		elif Input.is_action_pressed("back") and Input.is_action_pressed("left") and mov_up.current_animation != "jump" and not Input.is_action_pressed("forward") and not Input.is_action_pressed("right"):
 			if speed == 1.75:
 				if crouch == 1:
 					mov_up.play("walking backwards")
