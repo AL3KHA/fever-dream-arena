@@ -18,12 +18,21 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	anim_player.play("spin")
 	$enviroment.play("start")
+	$Node3D/Camera3D.current = true
+
+	# pose for menu
+	$"Node3D/pose/basic movement lower body/AnimationPlayer".play("idle")
+	$"Node3D/pose/basic movement lower body/AnimationPlayer2".play("right")
+	$"Node3D/pose/basic movement upper body/AnimationPlayer".play("idle")
+	$"Node3D/pose/basic movement upper body/AnimationPlayer2".play("right")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape"):
 		get_tree().quit()
 
 func _on_host_pressed() -> void:
+	$Node3D/Camera3D.current = false
+	$Node3D.hide()
 	main_menu.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$CanvasLayer2.hide()
@@ -39,11 +48,18 @@ func _on_host_pressed() -> void:
 	add_player(multiplayer.get_unique_id())
 
 func _on_join_pressed() -> void:
+	$CanvasLayer.hide()
+	$CanvasLayer4.show()
+
+func _on_enter_pressed() -> void:
+	$Node3D/Camera3D.current = false
+	$Node3D.hide()
 	main_menu.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$CanvasLayer2.hide()
+	$CanvasLayer4.hide()
 
-	enet_peer.create_client($CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/addressEntry.text, int($CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/addressEntry2.text))
+	enet_peer.create_client($CanvasLayer4/PanelContainer/MarginContainer/VBoxContainer/addressEntry.text, int($CanvasLayer4/PanelContainer/MarginContainer/VBoxContainer/addressEntry2.text))
 	multiplayer.multiplayer_peer = enet_peer
 
 func add_player(peer_id):

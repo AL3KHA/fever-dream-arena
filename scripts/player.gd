@@ -36,6 +36,13 @@ func _ready() -> void:
 	col.scale = Vector3(1.0, 1.0, 1.0)
 	for_crouch.play("not crouched")
 	fpp.current = true
+	$"basic movement lower body/Armature/Skeleton3D/Alpha_Joints".hide()
+	$"basic movement lower body/Armature/Skeleton3D/Alpha_Surface".hide()
+	$"basic movement upper body/Armature/Skeleton3D/Alpha_Joints".hide()
+	$"basic movement upper body/Armature/Skeleton3D/Alpha_Surface".hide()
+	$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Alpha_Surface".hide()
+	$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Cylinder".hide()
+	$"basic movement upper body/Armature/Skeleton3D/BoneAttachment3D/head/Cylinder_001".hide()
 
 func _input(event: InputEvent) -> void:
 	#sprinting
