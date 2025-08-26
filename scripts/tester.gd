@@ -17,7 +17,7 @@ func _ready() -> void:
 	port = int(rng.randf_range(1, 9999))
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	anim_player.play("spin")
-	$enviroment.play("start")
+	$enviroment.play("RESET")
 	$Node3D/Camera3D.current = true
 
 	# pose for menu
@@ -36,6 +36,7 @@ func _on_host_pressed() -> void:
 	main_menu.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$CanvasLayer2.hide()
+	$enviroment.play("start")
 
 	enet_peer.create_server(port)
 	multiplayer.multiplayer_peer = enet_peer
@@ -58,9 +59,14 @@ func _on_enter_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$CanvasLayer2.hide()
 	$CanvasLayer4.hide()
+	$enviroment.play("start")
 
 	enet_peer.create_client($CanvasLayer4/PanelContainer/MarginContainer/VBoxContainer/addressEntry.text, int($CanvasLayer4/PanelContainer/MarginContainer/VBoxContainer/addressEntry2.text))
 	multiplayer.multiplayer_peer = enet_peer
+
+func _on_back_pressed() -> void:
+	$CanvasLayer4.hide()
+	$CanvasLayer.show()
 
 func add_player(peer_id):
 	player = PLAYER.instantiate()
